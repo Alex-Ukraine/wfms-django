@@ -1,0 +1,34 @@
+>>> from news.models import News
+>>> News(title='Новость 1', content='Контент новости 1')
+<News: News object (None)>
+>>> news1=_
+>>> news1.title
+'Новость 1'
+>>> news1.id
+>>> news1.save()
+>>> news1.id
+1
+>>> from django.db import connection
+>>> connection.queries
+[{'sql': 'INSERT INTO "news_news" ("title", "content", "created_at", "updated_at", "photo", "is_published") VALUES (\'Новость 1\', \'Контент н
+овости 1\', \'2020-08-19 14:25:46.948108\', \'2020-08-19 14:25:46.948108\', \'\', 1)', 'time': '0.000'}]
+>>> news1.pk
+1
+>>> news2 = News(title='Новость 2', content='Контент новости 2')
+>>> connection.queries
+[{'sql': 'INSERT INTO "news_news" ("title", "content", "created_at", "updated_at", "photo", "is_published") VALUES (\'Новость 1\', \'Контент н
+овости 1\', \'2020-08-19 14:25:46.948108\', \'2020-08-19 14:25:46.948108\', \'\', 1)', 'time': '0.000'}]
+>>> news2.save()
+>>> connection.queries
+[{'sql': 'INSERT INTO "news_news" ("title", "content", "created_at", "updated_at", "photo", "is_published") VALUES (\'Новость 1\', \'Контент н
+овости 1\', \'2020-08-19 14:25:46.948108\', \'2020-08-19 14:25:46.948108\', \'\', 1)', 'time': '0.000'}, {'sql': 'INSERT INTO "news_news" ("ti
+tle", "content", "created_at", "updated_at", "photo", "is_published") VALUES (\'Новость 2\', \'Контент новости 2\', \'2020-08-19 15:06:03.7925
+53\', \'2020-08-19 15:06:03.792553\', \'\', 1)', 'time': '0.000'}]
+>>>
+>>> news3 = News()
+>>> news3.title = 'Новость3'
+>>> news3.content = 'Контент новости3'
+>>> news3.save()
+>>> news4 = News.objects.create(title='Новость 4', content='Контент новости 4')
+>>> News.objects.create(title='News 5', content='News 5 content')
+<News: News object (5)>
