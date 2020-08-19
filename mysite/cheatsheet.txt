@@ -32,3 +32,44 @@ tle", "content", "created_at", "updated_at", "photo", "is_published") VALUES (\'
 >>> news4 = News.objects.create(title='Новость 4', content='Контент новости 4')
 >>> News.objects.create(title='News 5', content='News 5 content')
 <News: News object (5)>
+>>> News.objects.all()
+<QuerySet [<News: News object (1)>, <News: News object (2)>, <News: News object (3)>, <News: News object (4)>, <News: News object (5)>]>
+>>> from news.models import News
+>>> Mews.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Mews' is not defined
+>>> News.objects.all()
+<QuerySet [<News: Новость 1>, <News: Новость 2>, <News: Новость3>, <News: Новость 4>, <News: News 5>]>
+>>> news = -
+  File "<console>", line 1
+    news = -
+           ^
+SyntaxError: invalid syntax
+>>> news = _
+>>> news
+<QuerySet [<News: Новость 1>, <News: Новость 2>, <News: Новость3>, <News: Новость 4>, <News: News 5>]>
+>>> for item in news:
+...     print(item.title, item.is_published)
+...
+Новость 1 True
+Новость 2 True
+Новость3 True
+Новость 4 True
+News 5 True
+>>>
+>>> News.objects.create(title='News 5', content='News 6 content')
+<News: News 5>
+>>> News.objects.filter(title='News 5')
+<QuerySet [<News: News 5>, <News: News 5>]>
+>>> News.objects.filter(title='News 6')
+<QuerySet []>
+>>> News.objects.get(pk=5)
+<News: News 5>
+>>> News.objects.order_by('title')
+<QuerySet [<News: News 5>, <News: News 5>, <News: Новость 1>, <News: Новость 2>, <News: Новость 4>, <News: Новость3>]>
+>>> News.objects.order_by('-title')
+<QuerySet [<News: Новость3>, <News: Новость 4>, <News: Новость 2>, <News: Новость 1>, <News: News 5>, <News: News 5>]>
+>>> News.objects.exclude(title='News 5')
+<QuerySet [<News: Новость 1>, <News: Новость 2>, <News: Новость3>, <News: Новость 4>]>
+
